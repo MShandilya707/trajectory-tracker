@@ -1,0 +1,25 @@
+# Rust
+/target
+Cargo.lock
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv
+venv/
+ENV/
+env/
+.env
+
+# Project specific
+/models/*
+!/models/.gitkeep
+/results/*
+!/results/.gitkeep
+*.png
+*.npz
+
+# IDE
+.vscode/
+.idea/

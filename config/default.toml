@@ -1,0 +1,25 @@
+[training]
+learning_rate = 3e-4
+buffer_size = 200000
+batch_size = 256
+tau = 0.005
+gamma = 0.99
+ent_coef = "auto"
+net_arch = [256, 256, 128]
+device = "cpu"
+timesteps = 300000
+
+[env]
+dt = 0.04
+max_steps = 400
+noise_std = 0.005
+delay_steps = 2
+action_scale = 0.05
+
+[reward]
+pos_error_scale = -10
+action_penalty = -0.005
+spectral_buffer_size = 64
+spectral_cutoff_ratio = 0.15
+spectral_scale = -0.02
+lyapunov_scale = -2.0
