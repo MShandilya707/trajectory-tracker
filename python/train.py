@@ -52,7 +52,7 @@ def main():
         )
         return Monitor(env)
 
-    vec_env = make_vec_env(make_env, n_envs=4)
+    vec_env = make_vec_env(make_env, n_envs=6)
     eval_env = make_env()
 
     eval_callback = EvalCallback(eval_env, best_model_save_path="models/best/",
@@ -62,15 +62,17 @@ def main():
     checkpoint_callback = CheckpointCallback(save_freq=50000, save_path="models/",
                                              name_prefix=f"sac_checkpoint_{traj}")
 
-    policy_kwargs = dict(net_arch=config["training"]["net_arch"])
+    policy_kwargs = dict(net_arch=[256, 256])
     
     model = SAC("MlpPolicy", vec_env, 
-                learning_rate=config["training"]["learning_rate"], 
-                buffer_size=config["training"]["buffer_size"],
-                batch_size=config["training"]["batch_size"], 
-                tau=config["training"]["tau"], 
+                learning_rate=1e-3, 
+                buffer_size=300000,
+                batch_size=512, 
+                tau=0.01, 
                 gamma=config["training"]["gamma"], 
                 ent_coef=config["training"]["ent_coef"],
+                train_freq=4,
+                learning_starts=5000,
                 policy_kwargs=policy_kwargs, 
                 device=config["training"]["device"], 
                 verbose=1)
