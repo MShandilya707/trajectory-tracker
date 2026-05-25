@@ -4,16 +4,16 @@
 [![Algorithm](https://img.shields.io/badge/Algorithm-SAC-blue.svg)](#)
 [![Physics](https://img.shields.io/badge/Physics-PyBullet-green.svg)](#)
 
-A high-performance, research-grade Reinforcement Learning system for precision robotic arm trajectory tracking. This project implements a **Soft Actor-Critic (SAC)** agent within a custom **Gymnasium** environment, featuring a unique hybrid architecture that combines the system-level safety of **Rust** with the rich AI ecosystem of **Python**.
+A high-performance, research-grade Reinforcement Learning system for precision robotic arm trajectory tracking. This project implements a Soft Actor-Critic (SAC) agent within a custom Gymnasium environment, featuring a unique hybrid architecture that combines the system-level safety of Rust with the rich AI ecosystem of Python.
 
-## 🚀 Key Innovation: Multi-Objective Reward Shaping
+## Key Innovation: Multi-Objective Reward Shaping
 Unlike standard tracking controllers, pH-NODE utilizes three distinct mathematical components to ensure smooth, stable, and accurate motion:
 
-1.  **Gaussian Tracking Reward:** $\exp(-k \cdot \|p_{ee} - p_{target}\|^2)$ for sub-millimeter precision.
+1.  **Gaussian Tracking Reward:** exp(-k * ||p_ee - p_target||^2) for sub-millimeter precision.
 2.  **Spectral Smoothness Penalty:** An FFT-based reward that penalizes high-frequency jitter by analyzing the power spectrum of end-effector movement over a rolling window.
-3.  **Lyapunov Stability Reward:** A gradient-descent inspired reward that ensures the agent is always moving *toward* the target manifold.
+3.  **Lyapunov Stability Reward:** A gradient-descent inspired reward that ensures the agent is always moving toward the target manifold.
 
-## 🏗 Architecture Overview
+## Architecture Overview
 
 | Component | Responsibility | Technology |
 | :--- | :--- | :--- |
@@ -22,7 +22,7 @@ Unlike standard tracking controllers, pH-NODE utilizes three distinct mathematic
 | **Simulation** | Physics, Franka Panda Model, Collision | **PyBullet / Panda-Gym** |
 | **Signal Processing**| FFT, Reward Shaping, Spectral Analysis | **NumPy / SciPy** |
 
-## 🛠 Features
+## Features
 
 *   **Hybrid Orchestration:** A single Rust binary manages Python environments and executes complex training/evaluation pipelines.
 *   **Uncertainty Modeling:**
@@ -34,7 +34,7 @@ Unlike standard tracking controllers, pH-NODE utilizes three distinct mathematic
     *   **3D Lissajous:** Multi-axis 3D tracking with reachable/unreachable goal regions.
 *   **Config-Driven:** Fully customizable via `config/default.toml`—no code changes required for hyperparameter tuning.
 
-## 🚦 Getting Started
+## Getting Started
 
 ### Prerequisites
 *   Rust (1.70+)
@@ -54,7 +54,7 @@ Unlike standard tracking controllers, pH-NODE utilizes three distinct mathematic
     cargo build --release
     ```
 
-## 📈 Usage
+## Usage
 
 The project is managed through the `armtracker` CLI.
 
@@ -74,7 +74,7 @@ Automatically trains and evaluates all trajectories sequentially:
 ./target/release/armtracker eval --model models/sac_final_circle --traj circle
 ```
 
-## 📈 Performance Evolution (Old vs New)
+## Performance Evolution (Old vs New)
 
 By implementing **Warm-Start**, **Velocity Alignment**, and **CBF Safety**, we achieved a significant jump in tracking quality:
 
@@ -84,15 +84,10 @@ By implementing **Warm-Start**, **Velocity Alignment**, and **CBF Safety**, we a
 | **Figure-8 RMSE** | 0.0884 m | **0.0447 m** | **+49.4%** |
 | **Spectral Purity** | 0.9412 | **0.9999** | **+6.2% (Perfect)** |
 
-## 📊 Latest Visual Results
-*Charts are automatically updated in the `results/` directory after each evaluation.*
-- **`results_circle.png`**: High-precision circle tracking.
-- **`results_figure8.png`**: Precision figure-8 infinity loop.
-
-## 🛡 Roadmap (Upcoming)
-*   [ ] **Control Barrier Functions (CBF):** Mathematically guaranteed safety layers to prevent self-collision.
-*   [ ] **Domain Randomization:** Varying link masses and friction for sim-to-real transfer.
-*   [ ] **Neural ODEs:** Continuous-time dynamics modeling for improved sample efficiency.
+## Latest Visual Results
+Charts are automatically updated in the `results/` directory after each evaluation.
+- **results_circle.png**: High-precision circle tracking.
+- **results_figure8.png**: Precision figure-8 infinity loop.
 
 ---
-**Developed with ❤️ for Robotics Research.**
+**Developed for Robotics Research.**
